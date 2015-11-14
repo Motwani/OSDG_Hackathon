@@ -1,7 +1,8 @@
 from django.db import models
 #from django.forms import ModelForm
 from django.core.validators import MaxValueValidator, MinValueValidator
-# Create your models here.
+
+
 class Prof(models.Model):
 	prof_name = models.CharField(max_length=200)
 
@@ -20,8 +21,7 @@ class Comments(models.Model):
 	description = models.CharField(max_length=200)
 	helpfulness = models.IntegerField()
 
-#class FeedbackForm(ModelForm):
-#	 name = forms.CharField(max_length=100)
-#	 title = forms.CharField(max_length=3,widget=forms.Select(choices=TITLE_CHOICES))
-#	 birth_date = forms.DateField(required=False)
+class Feedback(models.Model):
+	 choice1 = models.IntegerField()
+	 choice2 = models.IntegerField()
 
