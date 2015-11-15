@@ -36,7 +36,10 @@ def home(request):
 		#return HttpResponseRedirect('teacher_home', username=user.username) 
 		return render(request,'main/teacher_home.html',{'user':user})
 
-
+def teacher_home(request):
+	teach = Prof.objects.get(pk=1)
+	print teach.name
+	return render(request,'main/teacher_home.html',{'user':user})
 
 def userhome(request):
 	all_prof = Prof.objects.all()

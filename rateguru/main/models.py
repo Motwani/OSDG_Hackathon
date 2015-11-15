@@ -26,6 +26,8 @@ class Rating(models.Model):
 class Student(models.Model):
 	user = models.OneToOneField(User)
 	courses = models.ManyToManyField(Courses)
+
+
 class Comments(models.Model):
 	prof_id = models.ForeignKey(Prof)
 	description = models.CharField(max_length=200)
