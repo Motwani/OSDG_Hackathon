@@ -37,6 +37,7 @@ class Comments(models.Model):
 
 
 class Feedback(models.Model):
+	proff = models.ForeignKey(Prof)
 	choice1 = models.IntegerField()
 	choice2 = models.IntegerField()
 

@@ -14,18 +14,19 @@ def index(request):
 	print user.username
 	return render(request,'main/index.html',{'message':"Website is under construction!",'user' : user})
 
-def give_feedback(request):
+def give_feedback(request,prid):
+	prof = Prof.objects.get(email=request.user.username)
 	if request.method == 'POST':
 		form = FeedbackForm(request.POST)
 		if form.is_valid():
 			q1 = form.cleaned_data['q1']
 			q2 = form.cleaned_data['q2']
-			feed_obj = Feedback(choice1=q1,choice2=q2)
+			feed_obj = Feedback(proff=prof,choice1=q1,choice2=q2)
 			feed_obj.save()
-			return HttpResponse('Feedback Recieved.')
+			return HttpResponseRedirect(reverse('main:prof_detail', args=(prof.id,)))
 	else:
 		form = FeedbackForm()
-	return render(request,'main/give_feedback.html',{'form':form})
+	return render(request,'main/give_feedback.html',{'form':form,'prof':prof})
 
 @login_required(login_url='accounts/login')
 def home(request):
