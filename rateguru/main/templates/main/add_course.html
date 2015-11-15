@@ -1,0 +1,3 @@
+{% for course in courses %}
+<a href="{% url 'main:subscribe' course.id %}">{{ course.Name }}</a>
+{% endfor %}
