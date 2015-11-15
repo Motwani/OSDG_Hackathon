@@ -9,6 +9,11 @@ class Courses(models.Model):
 
 class Prof(models.Model):
 	prof_name = models.CharField(max_length=200)
+	clarity = models.FloatField()
+	helpfullness = models.FloatField()
+	friendly = models.FloatField()
+	dedicated = models.FloatField()
+	noofratings = models.IntegerField()
 	courses = models.ManyToManyField(Courses)
 
 class Rating(models.Model):
@@ -30,8 +35,8 @@ class Comments(models.Model):
 
 
 class Feedback(models.Model):
-	 choice1 = models.IntegerField()
-	 choice2 = models.IntegerField()
+	choice1 = models.IntegerField()
+	choice2 = models.IntegerField()
 
 #class FeedbackForm(ModelForm):
 #	 name = forms.CharField(max_length=100)

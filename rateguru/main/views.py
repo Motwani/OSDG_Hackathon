@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .forms import FeedbackForm
+from .forms import FeedbackForm,AddProfForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .models import Feedback
+from .models import Feedback,Prof
 # Create your views here.
 
 def index(request):
@@ -22,9 +22,38 @@ def give_feedback(request):
 	else:
 		form = FeedbackForm()
 	return render(request,'main/give_feedback.html',{'form':form})
+
 @login_required(login_url='accounts/login')
 def student_home(request):
 	user = User.objects.get(pk=request.user.id)
 	email = user.email	
 	return render(request,'main/student_home.html',{'user':user})
 
+def userhome(request):
+	all_prof = Prof.objects.all()
+	return render(request,'main/userhome.html',{'all_prof':all_prof})
+
+def addprof(request):
+	if request.method == 'POST':
+		form = AddProfForm(request.POST)
+		if form.is_valid():
+			prof_name = form.cleaned_data['prof_name']
+			clarity = form.cleaned_data['clarity']
+			helpfullness = form.cleaned_data['helpfullness']
+			friendly = form.cleaned_data['friendly']
+			dedicated = form.cleaned_data['dedicated']
+			noofratings = form.cleaned_data['noofratings']
+			prof_obj = Prof(prof_name=prof_name,
+				clarity=clarity,
+				helpfullness=helpfullness,
+				friendly=friendly,
+				dedicated=dedicated,
+				noofratings=noofratings,
+				)
+			prof_obj.save()
+			return HttpResponse('Prof Created')
+	else:
+		form = AddProfForm()
+	return render(request,'main/addprof.html',{'form':form})
+
+#def prof_profile(request):
