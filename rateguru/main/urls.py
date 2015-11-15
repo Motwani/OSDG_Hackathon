@@ -9,6 +9,6 @@ urlpatterns = [
     url(r'^addcourse$',views.addcourse,name='addcourse'),
     url(r'^prof_detail/(?P<prid>[0-9]+)/$',views.prof_detail,name='prof_detail'),
     url(r'^add_course$',views.add_course,name='add_course'),
-    url(r'^subscribe/(?P<courses_id>[0-9]+)/$',views.subscribe,name='subscribe'),
+    url(r'^subscribe/(?P<cid>[0-9]+)/$',views.subscribe,name='subscribe'),
     url(r'^student_detail/(?P<stid>[0-9]+)/$',views.student_detail,name='student_detail'),
 ]

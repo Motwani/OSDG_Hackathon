@@ -1,1 +1,5 @@
 <h3>{{student.name}}</h3>
+<a href="{% url 'main:add_course' %}">{{ student.name}}</a>
+{% for course in courses %}
+{{ course.Name }}
+{% endfor %}

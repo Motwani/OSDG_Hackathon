@@ -54,7 +54,8 @@ def prof_detail(request,prid):
 
 def student_detail(request,stid):
 	student = Student.objects.get(pk=stid)
-	return render(request,'main/student_detail.html',{'student':student})
+	courses = student.courses.all()
+	return render(request,'main/student_detail.html',{'student':student,'courses':courses})
 
 
 def addprof(request):
@@ -99,9 +100,9 @@ def prof_detail(request,prid):
 def add_course(request):
 	courses= Courses.objects.all()
 	return render(request,'main/add_course.html',{'courses':courses})
-def subscribe(request):
-	course=Courses.objects.get(pk=course.id)
-	student = Student.objects.get(pk=request.user.id)
+def subscribe(request,cid):
+	course=Courses.objects.get(pk=cid)
+	student = Student.objects.get(email=request.user.username)
 	student.courses.add(course)
 	return render(request,'main/subscribe.html',{'message' : "subscibed"})
 
