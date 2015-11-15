@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^add_course$',views.add_course,name='add_course'),
     url(r'^subscribe/(?P<cid>[0-9]+)/$',views.subscribe,name='subscribe'),
     url(r'^student_detail/(?P<stid>[0-9]+)/$',views.student_detail,name='student_detail'),
+    url(r'^addquestion$',views.addquestion,name='addquestion'),
 ]

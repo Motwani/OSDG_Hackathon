@@ -40,6 +40,8 @@ class Feedback(models.Model):
 	proff = models.ForeignKey(Prof)
 	choice1 = models.IntegerField()
 	choice2 = models.IntegerField()
+class PQuestion(models.Model):
+	question_text = models.CharField(max_length=200)
 
 #class FeedbackForm(ModelForm):
 #	 name = forms.CharField(max_length=100)

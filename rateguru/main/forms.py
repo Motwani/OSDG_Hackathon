@@ -18,5 +18,7 @@ class AddProfForm(forms.Form):
 class AddCourseForm(forms.Form):
 	Name = forms.CharField(max_length=20)
 	semester = forms.IntegerField()
+class AddPquestionForm(forms.Form):
+	question_text = forms.CharField(max_length=100)
 
   

@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .forms import FeedbackForm,AddProfForm,AddCourseForm
+from .forms import FeedbackForm,AddProfForm,AddCourseForm,AddPquestionForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import Feedback
 from django.http import HttpResponseRedirect
-from .models import Feedback,Prof,Courses,Student
+from .models import Feedback,Prof,Courses,Student,PQuestion
 from django.core.urlresolvers import reverse
 # Create your views here.
 
@@ -31,7 +31,8 @@ def give_feedback(request,prid):
 @login_required(login_url='accounts/login')
 def home(request):
 	user = User.objects.get(pk=request.user.id)
-	list = ['students','research']
+	#list = ['students','research']
+	list=[]
 	if any(word in user.username for word in list):
 		num = Student.objects.filter(email = user.username).count()
 		if num==0:
@@ -48,10 +49,6 @@ def home(request):
 			prof_obj.save()
 		prof = Prof.objects.get(email=user.username)
 		return HttpResponseRedirect(reverse('main:prof_detail', args=(prof.id,)))
-@login_required
-def prof_detail(request,prid):
-	prof = Prof.objects.get(pk=prid)
-	return render(request,'main/prof_detail.html',{'prof':prof})
 @login_required
 def student_detail(request,stid):
 	student = Student.objects.get(pk=stid)
@@ -111,5 +108,16 @@ def subscribe(request,cid):
 	student = Student.objects.get(email=request.user.username)
 	student.courses.add(course)
 	return render(request,'main/subscribe.html',{'message' : "subscibed"})
+def addquestion(request):
+	if request.method == 'POST':
+		form = AddPquestionForm(request.POST)
+		if form.is_valid():
+			text = form.cleaned_data['question_text']
+			que_obj = PQuestion(question_text=text)
+			que_obj.save()
+			return HttpResponse('Question Added')
+	else:
+		form = AddPquestionForm()
+	return render(request,'main/addquestion.html',{'form':form,})	
 
 #def prof_profile(request):
