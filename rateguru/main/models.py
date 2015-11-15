@@ -4,7 +4,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 # Create your models here.
 class Prof(models.Model):
 	prof_name = models.CharField(max_length=200)
-
+	courses = models.ManyToManyField(Courses)
 class Rating(models.Model):
 	prof_id = models.ForeignKey(Prof)
 	clarity = models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(5)])
