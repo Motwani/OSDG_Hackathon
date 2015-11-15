@@ -1,8 +1,21 @@
 <h3>{{prof.prof_name}}</h3>
 <a href="{% url 'main:give_feedback' prof.id %}">Give Feedback</a>
+</br>
+<a href="{% url 'main:give_rating' prof.id %}">Give Rating</a>
 
 {% for i in feedback %}
 <h2> {{i.choice1}}</h2>
 <h2> {{i.choice2}}</h2>
 </br>
 {% endfor %}
+
+
+{% for i in rating %}
+<h2> {{i.dedicated}}</h2>
+<h2> {{i.clarity}}</h2>
+<h2> {{ i.friendly }}</h2>
+<h2> {{i.helpfullness}}</h2>
+</br>
+{% endfor %}
+
+

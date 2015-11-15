@@ -18,7 +18,7 @@ class Prof(models.Model):
 	courses = models.ManyToManyField(Courses)
 
 class Rating(models.Model):
-	prof_id = models.ForeignKey(Prof)
+	proff = models.ForeignKey(Prof)
 	clarity = models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(5)])
 	helpfullness = models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(5)])
 	friendly = models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(5)])

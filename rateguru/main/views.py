@@ -1,11 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .forms import FeedbackForm,AddProfForm,AddCourseForm
+from .forms import RatingForm,FeedbackForm,AddProfForm,AddCourseForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .models import Feedback
 from django.http import HttpResponseRedirect
-from .models import Feedback,Prof,Courses,Student
+from .models import Rating,Feedback,Prof,Courses,Student
 from django.core.urlresolvers import reverse
 # Create your views here.
 
@@ -28,10 +27,28 @@ def give_feedback(request,prid):
 		form = FeedbackForm()
 	return render(request,'main/give_feedback.html',{'form':form,'prof':prof})
 
+
+def give_rating(request,prid):
+	prof = Prof.objects.get(email=request.user.username)
+	if request.method == 'POST':
+		form = RatingForm(request.POST)
+		if form.is_valid():
+			clarity = form.cleaned_data['clarity']
+			dedicated = form.cleaned_data['dedicated']
+			friendly = form.cleaned_data['friendly']
+			helpfullness = form.cleaned_data['helpfullness']
+			feed_obj = Rating(proff=prof,clarity=clarity,dedicated=dedicated,friendly=friendly,helpfullness=helpfullness)
+			feed_obj.save()
+			return HttpResponseRedirect(reverse('main:prof_detail', args=(prof.id,)))
+	else:
+		form = RatingForm()
+	return render(request,'main/give_rating.html',{'form':form,'prof':prof})
+
 @login_required(login_url='accounts/login')
 def home(request):
 	user = User.objects.get(pk=request.user.id)
-	list = ['students','research']
+	#list = ['students','research']
+	list=[]
 	if any(word in user.username for word in list):
 		num = Student.objects.filter(email = user.username).count()
 		if num==0:
@@ -48,10 +65,8 @@ def home(request):
 			prof_obj.save()
 		prof = Prof.objects.get(email=user.username)
 		return HttpResponseRedirect(reverse('main:prof_detail', args=(prof.id,)))
-@login_required
-def prof_detail(request,prid):
-	prof = Prof.objects.get(pk=prid)
-	return render(request,'main/prof_detail.html',{'prof':prof})
+
+
 @login_required
 def student_detail(request,stid):
 	student = Student.objects.get(pk=stid)
@@ -95,11 +110,13 @@ def addcourse(request):
 	else:
 		form = AddCourseForm()
 	return render(request,'main/addcourse.html',{'form':form})
+
 def prof_detail(request,prid):
 	prof = Prof.objects.get(pk=prid)
 	feedback = Feedback.objects.filter(proff=prof)
+	rating = Rating.objects.filter(proff=prof)
 	print feedback
-	return render(request,'main/prof_detail.html',{'prof':prof,'feedback':feedback})
+	return render(request,'main/prof_detail.html',{'prof':prof,'feedback':feedback,'rating':rating})
 
 @login_required
 def add_course(request):
