@@ -9,11 +9,12 @@ class Courses(models.Model):
 
 class Prof(models.Model):
 	prof_name = models.CharField(max_length=200)
-	clarity = models.FloatField()
-	helpfullness = models.FloatField()
-	friendly = models.FloatField()
-	dedicated = models.FloatField()
-	noofratings = models.IntegerField()
+	email = models.EmailField()
+	clarity = models.FloatField(default=0)
+	helpfullness = models.FloatField(default=0)
+	friendly = models.FloatField(default=0)
+	dedicated = models.FloatField(default=0)
+	noofratings = models.IntegerField(default=0)
 	courses = models.ManyToManyField(Courses)
 
 class Rating(models.Model):
@@ -24,7 +25,8 @@ class Rating(models.Model):
 	dedicated = models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(5)])
 
 class Student(models.Model):
-	user = models.OneToOneField(User)
+	email = models.EmailField()
+	name = models.CharField(max_length=50)
 	courses = models.ManyToManyField(Courses)
 
 
