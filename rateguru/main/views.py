@@ -12,6 +12,7 @@ def index(request):
 	user = User.objects.get(pk=request.user.id)
 	print user.username
 	return render(request,'main/index.html',{'message':"Website is under construction!",'user' : user})
+
 def give_feedback(request):
 	if request.method == 'POST':
 		form = FeedbackForm(request.POST)
@@ -81,7 +82,8 @@ def addcourse(request):
 	else:
 		form = AddCourseForm()
 	return render(request,'main/addcourse.html',{'form':form})
-def prof_detail(request):
-	prof = Prof.objects.get(pk=prof.id)
+
+def prof_detail(request,prid):
+	prof = Prof.objects.get(pk=prid)
 	return render(request,'main/prof_detail.html',{'prof':prof})
 #def prof_profile(request):

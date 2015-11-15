@@ -12,5 +12,5 @@ urlpatterns = [
     url(r'^userhome/$',views.userhome, name='userhome'),
     url(r'^addprof$',views.addprof, name='addprof'),
     url(r'^addcourse$',views.addcourse,name='addcourse'),
-    url(r'^/prof_detail/(?P<prof_id>[0-9]+)/$',views.prof_detail,name='prof_detail'),
+    url(r'^prof_detail/(?P<prid>[0-9]+)/$',views.prof_detail,name='prof_detail'),
 ]

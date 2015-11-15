@@ -1,3 +1,4 @@
+{% load url from future %}
 {% for prof in all_prof %}
-<a href="{% url 'main : prof_detail'  'prof_id' %}">{{ prof.prof_name }}</a>
+<a href="{% url 'main:prof_detail' prof.id %}">{{ prof.prof_name }}</a>
 {% endfor %}
