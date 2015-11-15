@@ -47,11 +47,11 @@ def home(request):
 			prof_obj.save()
 		prof = Prof.objects.get(email=user.username)
 		return HttpResponseRedirect(reverse('main:prof_detail', args=(prof.id,)))
-
+@login_required
 def prof_detail(request,prid):
 	prof = Prof.objects.get(pk=prid)
 	return render(request,'main/prof_detail.html',{'prof':prof})
-
+@login_required
 def student_detail(request,stid):
 	student = Student.objects.get(pk=stid)
 	courses = student.courses.all()
@@ -97,9 +97,11 @@ def addcourse(request):
 def prof_detail(request,prid):
 	prof = Prof.objects.get(pk=prid)
 	return render(request,'main/prof_detail.html',{'prof':prof})
+@login_required
 def add_course(request):
 	courses= Courses.objects.all()
 	return render(request,'main/add_course.html',{'courses':courses})
+@login_required
 def subscribe(request,cid):
 	course=Courses.objects.get(pk=cid)
 	student = Student.objects.get(email=request.user.username)
