@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .forms import FeedbackForm,AddProfForm
+from .forms import FeedbackForm,AddProfForm,AddCourseForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import Feedback
 from django.http import HttpResponseRedirect
-from .models import Feedback,Prof
+from .models import Feedback,Prof,Courses
 # Create your views here.
 
 def index(request):
@@ -64,5 +64,19 @@ def addprof(request):
 	else:
 		form = AddProfForm()
 	return render(request,'main/addprof.html',{'form':form})
+def addcourse(request):
+	if request.method == 'POST':
+		form = AddCourseForm(request.POST)
+		if form.is_valid():
+			Course_name = form.cleaned_data['Name']
+			semester = form.cleaned_data['semester']
+			Course_obj = Courses(Name=Course_name,
+						semester=semester,
+				)
+			Course_obj.save()
+			return HttpResponse('Course Created')
+	else:
+		form = AddCourseForm()
+	return render(request,'main/addcourse.html',{'form':form})
 
 #def prof_profile(request):
