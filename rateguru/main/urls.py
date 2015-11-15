@@ -10,5 +10,6 @@ urlpatterns = [
     url(r'^teacher_home/$', views.teacher_home,name='teacher_home'),
 
     url(r'^userhome/$',views.userhome, name='userhome'),
-    url(r'^addprof$',views.addprof, name='addprof')
+    url(r'^addprof$',views.addprof, name='addprof'),
+    url(r'^addcourse$',views.addcourse,name='addcourse'),
 ]
