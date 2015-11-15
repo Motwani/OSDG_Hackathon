@@ -16,12 +16,14 @@ def index(request):
 	return render(request,'main/index.html',{'message':"Website is under construction!",'user' : user})
 
 def give_feedback(request,prid):
-	prof = Prof.objects.get(email=request.user.username)
+	prof = Prof.objects.get(pk=prid)
 	if request.method == 'POST':
 		form = FeedbackForm(request.POST)
 		if form.is_valid():
 			q1 = form.cleaned_data['q1']
 			q2 = form.cleaned_data['q2']
+			q3 = form.cleaned_data['q3']
+			q4 = form.cleaned_data['q4']
 			feed_obj = Feedback(proff=prof,choice1=q1,choice2=q2)
 			feed_obj.save()
 			return HttpResponseRedirect(reverse('main:prof_detail', args=(prof.id,)))
@@ -29,9 +31,14 @@ def give_feedback(request,prid):
 		form = FeedbackForm()
 	return render(request,'main/give_feedback.html',{'form':form,'prof':prof})
 
+def allprof(request):
+	prof = Prof.objects.all()
+	return render(request,'main/allprof.html',{'prof':prof})
+
+
 
 def give_rating(request,prid):
-	prof = Prof.objects.get(email=request.user.username)
+	prof = Prof.objects.get(pk=prid)
 	if request.method == 'POST':
 		form = RatingForm(request.POST)
 		if form.is_valid():
@@ -39,6 +46,12 @@ def give_rating(request,prid):
 			dedicated = form.cleaned_data['dedicated']
 			friendly = form.cleaned_data['friendly']
 			helpfullness = form.cleaned_data['helpfullness']
+			prof.clarity = (prof.clarity*prof.noofratings+int(clarity))/(prof.noofratings+1)
+			prof.friendly = (prof.friendly*prof.noofratings+int(friendly))/(prof.noofratings+1)
+			prof.dedicated = (prof.dedicated*prof.noofratings+int(dedicated))/(prof.noofratings+1)
+			prof.helpfullness = (prof.helpfullness*prof.noofratings+int(helpfullness))/(prof.noofratings+1)
+			prof.noofratings = prof.noofratings + 1
+			prof.save()
 			feed_obj = Rating(proff=prof,clarity=clarity,dedicated=dedicated,friendly=friendly,helpfullness=helpfullness)
 			feed_obj.save()
 			return HttpResponseRedirect(reverse('main:prof_detail', args=(prof.id,)))

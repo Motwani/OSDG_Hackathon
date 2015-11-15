@@ -1,0 +1,6 @@
+{% for i in prof %}
+<h2>{{ i.name }}</h2>
+<h2>{{i.email}}</h2>
+<a href="{% url 'main:prof_detail' i.id %}">View Profile</a>
+</br>
+{% endfor %}

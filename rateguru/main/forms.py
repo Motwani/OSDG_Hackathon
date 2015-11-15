@@ -1,10 +1,16 @@
 from django import forms
-
+from .models import PQuestion
 
 class FeedbackForm(forms.Form):
 	MY_CHOICES = ((1, '1'),(2, '2'),(3, '3'),(4, '4'),(5, '5'),)
-	q1 = forms.ChoiceField(widget=forms.RadioSelect, choices=MY_CHOICES,required=True, label='Q1 text')
-	q2 = forms.ChoiceField(widget=forms.RadioSelect, choices=MY_CHOICES,required=True, label='Q2 text')
+	P=PQuestion.objects.all()
+	arr=[]
+	for i in P:
+		arr.append(i.question_text)
+	q1 = forms.ChoiceField(widget=forms.RadioSelect, choices=MY_CHOICES,required=True, label=arr[0])
+	q2 = forms.ChoiceField(widget=forms.RadioSelect, choices=MY_CHOICES,required=True, label=arr[1])
+	q3 = forms.ChoiceField(widget=forms.RadioSelect, choices=MY_CHOICES,required=True, label=arr[2])
+	q4 = forms.ChoiceField(widget=forms.RadioSelect, choices=MY_CHOICES,required=True, label=arr[3])
 
 class RatingForm(forms.Form):
 	MY_CHOICES = ((1, '1'),(2, '2'),(3, '3'),(4, '4'),(5, '5'),)

@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^give_rating/(?P<prid>[0-9]+)/$', views.give_rating, name='give_rating'),
     url(r'^addprof$',views.addprof, name='addprof'),
     url(r'^addcourse$',views.addcourse,name='addcourse'),
+    url(r'^allprof$',views.allprof,name='allprof'),
     url(r'^prof_detail/(?P<prid>[0-9]+)/$',views.prof_detail,name='prof_detail'),
     url(r'^add_course$',views.add_course,name='add_course'),
     url(r'^subscribe/(?P<cid>[0-9]+)/$',views.subscribe,name='subscribe'),

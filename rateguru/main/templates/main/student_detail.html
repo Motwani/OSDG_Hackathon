@@ -1,6 +1,11 @@
 <h3>{{student.name}}</h3>
 <a href="{% url 'main:add_course' %}">Subscribe Courses</a>
+</br>
+<h2> Subscribed Courses </h2>
 {% for course in courses	 %}
-{{ course.Name }}
+<h3>{{ course.Name }}</h3>
 {% endfor %}
+</br>
+<a href="{% url 'main:allprof' %}">View all professors</a>
+</br>
 <a href="{% url 'django_cas.views.logout' %}">Log out</a>
