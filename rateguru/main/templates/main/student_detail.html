@@ -3,3 +3,4 @@
 {% for course in courses	 %}
 {{ course.Name }}
 {% endfor %}
+<a href="{% url 'django_cas.views.logout' %}">Log out</a>
