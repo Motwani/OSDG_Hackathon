@@ -47,10 +47,23 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_cas.middleware.CASMiddleware',
 )
 
 ROOT_URLCONF = 'rateguru.urls'
+AUTHENTICATION_BACKENDS = ( 
+		        'django.contrib.auth.backends.ModelBackend', 
+			        'base.backends.PopulatedCASBackend',
+				        )
+CAS_SERVER_URL = "https://login.iiit.ac.in/cas/login"
+CAS_VERSION = '3'
+CAS_LOGOUT_COMPLETLY = True
+CAS_LOGOUT_URL = "https://login.iiit.ac.in/cas/logout"
+CAS_DISPLAY_MESSAGES = False
 
+LOGIN_URL = '/accounts/login'
+LOGOUT_URL = '/accounts/logout'
+REDIRECT_URl = '/main'
 WSGI_APPLICATION = 'rateguru.wsgi.application'
 
 
