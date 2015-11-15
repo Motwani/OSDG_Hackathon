@@ -12,9 +12,6 @@ urlpatterns = [
     url(r'^add_course$',views.add_course,name='add_course'),
     url(r'^subscribe/(?P<cid>[0-9]+)/$',views.subscribe,name='subscribe'),
     url(r'^student_detail/(?P<stid>[0-9]+)/$',views.student_detail,name='student_detail'),
-<<<<<<< HEAD
     url(r'^addquestion$',views.addquestion,name='addquestion'),
-=======
     url(r'^form$',views.form,name='form'),
->>>>>>> a0ea9a66fef52ca8ed65eb2c0bf26e80c9a6408a
 ]

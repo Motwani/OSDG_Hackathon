@@ -1,18 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-<<<<<<< HEAD
 from .forms import FeedbackForm,AddProfForm,AddCourseForm,AddPquestionForm
-=======
 from .forms import RatingForm,FeedbackForm,AddProfForm,AddCourseForm
->>>>>>> a0ea9a66fef52ca8ed65eb2c0bf26e80c9a6408a
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-<<<<<<< HEAD
 from .models import Feedback,Prof,Courses,Student,PQuestion
-=======
 from .models import Rating,Feedback,Prof,Courses,Student
->>>>>>> a0ea9a66fef52ca8ed65eb2c0bf26e80c9a6408a
 from django.core.urlresolvers import reverse
 # Create your views here.
 
@@ -55,8 +49,8 @@ def give_rating(request,prid):
 @login_required(login_url='accounts/login')
 def home(request):
 	user = User.objects.get(pk=request.user.id)
-	#list = ['students','research']
-	list=[]
+	list = ['students','research']
+	#list=[]
 	if any(word in user.username for word in list):
 		num = Student.objects.filter(email = user.username).count()
 		if num==0:
@@ -73,11 +67,8 @@ def home(request):
 			prof_obj.save()
 		prof = Prof.objects.get(email=user.username)
 		return HttpResponseRedirect(reverse('main:prof_detail', args=(prof.id,)))
-<<<<<<< HEAD
-=======
 
 
->>>>>>> a0ea9a66fef52ca8ed65eb2c0bf26e80c9a6408a
 @login_required
 def student_detail(request,stid):
 	student = Student.objects.get(pk=stid)
@@ -139,7 +130,6 @@ def subscribe(request,cid):
 	student = Student.objects.get(email=request.user.username)
 	student.courses.add(course)
 	return render(request,'main/subscribe.html',{'message' : "subscibed"})
-<<<<<<< HEAD
 def addquestion(request):
 	if request.method == 'POST':
 		form = AddPquestionForm(request.POST)
@@ -151,12 +141,10 @@ def addquestion(request):
 	else:
 		form = AddPquestionForm()
 	return render(request,'main/addquestion.html',{'form':form,})	
-=======
 def form(request):
 	if request.method == 'POST':
 		print request.POST.get('country')
 		return HttpResponse('Feedback Recieved.')
->>>>>>> a0ea9a66fef52ca8ed65eb2c0bf26e80c9a6408a
 
 	return render(request,'main/form.html')
 #def prof_profile(request):
