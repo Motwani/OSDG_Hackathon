@@ -81,5 +81,7 @@ def addcourse(request):
 	else:
 		form = AddCourseForm()
 	return render(request,'main/addcourse.html',{'form':form})
-
+def prof_detail(request):
+	prof = Prof.objects.get(pk=prof.id)
+	return render(request,'main/prof_detail.html',{'prof':prof})
 #def prof_profile(request):
