@@ -5,7 +5,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import Feedback
 from django.http import HttpResponseRedirect
-from .models import Feedback,Prof,Courses
+from .models import Feedback,Prof,Courses,Student
+from django.core.urlresolvers import reverse
 # Create your views here.
 
 def index(request):
@@ -31,20 +32,30 @@ def home(request):
 	user = User.objects.get(pk=request.user.id)
 	list = ['students','research']
 	if any(word in user.username for word in list):
-		#return HttpResponseRedirect('student_home',username=user.username) 
-		return render(request,'main/student_home.html',{'user':user})
+		num = Student.objects.filter(email = user.username).count()
+		if num==0:
+			a = user.username.split('@')
+			prof_obj = Student(name=a[0],email=user.username)
+			prof_obj.save()
+		prof = Student.objects.get(email=user.username)
+		return HttpResponseRedirect(reverse('main:student_detail', args=(prof.id,)))
 	else:
-		#return HttpResponseRedirect('teacher_home', username=user.username) 
-		return render(request,'main/teacher_home.html',{'user':user})
+		num = Prof.objects.filter(email = user.username).count()
+		if num==0:
+			a = user.username.split('@')
+			prof_obj = Prof(prof_name=a[0],email=user.username)
+			prof_obj.save()
+		prof = Prof.objects.get(email=user.username)
+		return HttpResponseRedirect(reverse('main:prof_detail', args=(prof.id,)))
 
-def teacher_home(request):
-	teach = Prof.objects.get(pk=1)
-	print teach.name
-	return render(request,'main/teacher_home.html',{'user':user})
+def prof_detail(request,prid):
+	prof = Prof.objects.get(pk=prid)
+	return render(request,'main/prof_detail.html',{'prof':prof})
 
-def userhome(request):
-	all_prof = Prof.objects.all()
-	return render(request,'main/userhome.html',{'all_prof':all_prof})
+def student_detail(request,stid):
+	student = Student.objects.get(pk=stid)
+	return render(request,'main/student_detail.html',{'student':student})
+
 
 def addprof(request):
 	if request.method == 'POST':
@@ -83,7 +94,5 @@ def addcourse(request):
 		form = AddCourseForm()
 	return render(request,'main/addcourse.html',{'form':form})
 
-def prof_detail(request,prid):
-	prof = Prof.objects.get(pk=prid)
-	return render(request,'main/prof_detail.html',{'prof':prof})
+
 #def prof_profile(request):
