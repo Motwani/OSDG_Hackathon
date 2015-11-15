@@ -20,7 +20,7 @@ def give_feedback(request):
 	else:
 		form = FeedbackForm()
 	return render(request,'main/give_feedback.html',{'form':form})
-def home(request):
+def student_home(request):
 	user = User.objects.get(pk=request.user.id)
-	return render(request,'main/home.html',{'user':user})
+	return render(request,'main/student_home.html',{'user':user})
 

@@ -9,15 +9,20 @@ class Courses(models.Model):
 
 class Prof(models.Model):
 	prof_name = models.CharField(max_length=200)
-	courses = models.ManyToManyField(Courses)	
+	courses = models.ManyToManyField(Courses)
+
 class Rating(models.Model):
 	prof_id = models.ForeignKey(Prof)
 	clarity = models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(5)])
 	helpfullness = models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(5)])
 	friendly = models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(5)])
 	dedicated = models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(5)])
+
 class Student(models.Model):
 	name = models.CharField(max_length=200)
+	courses = models.ManyToManyField(Courses)
+
+
 class Comments(models.Model):
 	prof_id = models.ForeignKey(Prof)
 	description = models.CharField(max_length=200)
