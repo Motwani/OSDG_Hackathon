@@ -97,7 +97,10 @@ def addcourse(request):
 	return render(request,'main/addcourse.html',{'form':form})
 def prof_detail(request,prid):
 	prof = Prof.objects.get(pk=prid)
-	return render(request,'main/prof_detail.html',{'prof':prof})
+	feedback = Feedback.objects.filter(proff=prof)
+	print feedback
+	return render(request,'main/prof_detail.html',{'prof':prof,'feedback':feedback})
+
 @login_required
 def add_course(request):
 	courses= Courses.objects.all()

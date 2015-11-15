@@ -14,6 +14,7 @@ class AddProfForm(forms.Form):
 	friendly = forms.FloatField()
 	dedicated = forms.FloatField()
 	noofratings = forms.IntegerField()
+
 class AddCourseForm(forms.Form):
 	Name = forms.CharField(max_length=20)
 	semester = forms.IntegerField()
