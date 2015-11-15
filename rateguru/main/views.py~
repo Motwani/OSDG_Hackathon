@@ -128,10 +128,5 @@ def subscribe(request,cid):
 	student = Student.objects.get(email=request.user.username)
 	student.courses.add(course)
 	return render(request,'main/subscribe.html',{'message' : "subscibed"})
-def form(request):
-	if request.method == 'POST':
-		print request.POST.get('country')
-		return HttpResponse('Feedback Recieved.')
 
-	return render(request,'main/form.html')
 #def prof_profile(request):
