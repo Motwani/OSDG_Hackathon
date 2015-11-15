@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import FeedbackForm
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from .models import Feedback
 # Create your views here.
 
@@ -20,7 +22,9 @@ def give_feedback(request):
 	else:
 		form = FeedbackForm()
 	return render(request,'main/give_feedback.html',{'form':form})
+@login_required(login_url='accounts/login')
 def student_home(request):
 	user = User.objects.get(pk=request.user.id)
+	email = user.email	
 	return render(request,'main/student_home.html',{'user':user})
 
