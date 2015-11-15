@@ -1,2 +1,8 @@
 <h3>{{prof.prof_name}}</h3>
 <a href="{% url 'main:give_feedback' prof.id %}">Give Feedback</a>
+
+{% for i in feedback %}
+<h2> {{i.choice1}}</h2>
+<h2> {{i.choice2}}</h2>
+</br>
+{% endfor %}
