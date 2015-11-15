@@ -63,7 +63,7 @@ CAS_DISPLAY_MESSAGES = False
 
 LOGIN_URL = '/accounts/login'
 LOGOUT_URL = '/accounts/logout'
-CAS_REDIRECT_URL = '/main'
+CAS_REDIRECT_URL = '/main/home'
 WSGI_APPLICATION = 'rateguru.wsgi.application'
 
 
